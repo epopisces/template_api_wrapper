@@ -71,9 +71,9 @@ class ObjectClass():
         return
 
     def _request(self, api_path, method, params=None, headers=None, body=None, post_param=None):
-        """ unpaged request template, abstracts much of the error handling away.  
-        When using for specific API may need modification for specific idiosyncrasies 
-        Introduced to this concept when reviewing the Veracode Python API Wrapper"""
+        """ unpaged request template, abstracts much of the error handling.  
+        May require modification for specific API to account for idiosyncrasies 
+        """
     
         method = method.upper() # just in case (puns!)
         
@@ -119,62 +119,37 @@ class ObjectClass():
                 return r.json()
             except json.JSONDecodeError:
                 return r.text
+
+    def _paged_request(self, api_path, method, hal_element, params=None, headers=None, body=None, post_param=None):
+        """ paged request template, still a work in progress.
+        A given APIs may implement pagination very differently from another API
+        May require modification for specific API to account for idiosyncrasies 
+        """
+        all_data = []
+        page = 0
+        more_pages = True
+
+        method = method.upper() # just in case (puns!)
         
+        if method not in self.methods_supported:
+            raise TOOLNAMEAPIException(f"{method} is not a HTTP method supported by this API")
 
+        #* Make any method-dependent alterations here, eg add Content-type to headers for POST
 
-        myheaders = {"User-Agent": "api.py"}
-        if method in ["POST", "PUT"]:
-            myheaders.update({'Content-type': 'application/json'})
+        while more_pages:
+            params['page'] = page
+            page_data = self._request(api_path, method, params, headers, body, post_param)
+            #! assumes req returns total_pages field, mod as needed
+            total_pages = page_data.get('page', {}).get('total_pages', 0)
+            #! assumes API is using HAL _embedded format
+            this_page_data = page_data.get('_embedded', {}).get(hal_element, [])
+            all_data += this_page_data
 
-        retry_strategy = Retry(total=3,
-            status_forcelist=[429, 500, 502, 503, 504],
-            method_whitelist=["HEAD", "GET", "OPTIONS"]
-            )
-        session = requests.Session()
-        session.mount(self.base_rest_url, HTTPAdapter(max_retries=retry_strategy))
+            page += 1
+            more_pages = page < total_pages
 
-        if use_base_url:
-            url = self.base_rest_url + url
-
-        try:
-            if method == "GET":
-                request = requests.Request(method, url, params=params, auth=RequestsAuthPluginVeracodeHMAC(), headers=myheaders)
-                prepared_request = request.prepare()
-                r = session.send(prepared_request, proxies=self.proxies)
-            elif method == "POST":
-                r = requests.post(url, params=params,auth=RequestsAuthPluginVeracodeHMAC(),headers=myheaders,data=body)
-            elif method == "PUT":
-                r = requests.put(url, params=params,auth=RequestsAuthPluginVeracodeHMAC(), headers=myheaders,data=body)
-            elif method == "DELETE":
-                r = requests.delete(url, params=params,auth=RequestsAuthPluginVeracodeHMAC(),headers=myheaders)
-            else:
-                raise VeracodeAPIError("Unsupported HTTP method")
-        except requests.exceptions.RequestException as e:
-            logger.exception(self.connect_error_msg)
-            raise VeracodeAPIError(e)
-
-        if not (r.status_code == requests.codes.ok):
-            logger.debug("API call returned non-200 HTTP status code: {}".format(r.status_code))
-
-        if not (r.ok):
-            logger.debug("Error retrieving data. HTTP status code: {}".format(r.status_code))
-            if r.status_code == 401:
-                logger.exception("Error [{}]: {} for request {}. Check that your Veracode API account credentials are correct.".format(r.status_code,
-                                r.text, r.request.url))
-            else:
-                logger.exception("Error [{}]: {} for request {}".
-                    format(r.status_code, r.text, r.request.url))
-            raise requests.exceptions.RequestException()
-
-        if fullresponse:
-            return r
-        elif r.text != "":
-            return r.json()
-        else:
-            return ""
-
-
-
+        return all_data
+        
 
 if __name__ == "__main__":
     #? Remove this section if not accepting arguments from CLI
