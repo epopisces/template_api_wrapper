@@ -2,9 +2,9 @@
 
 > Tools for interacting with $Toolname, including a Python API wrapper
 
-**NOTE:** For Python tool repo names, stick with underscores (eg 'tools_app'.  Hyphens can cause issues during imports.
+**NOTE:** For Python tool repo names, stick with underscores (eg 'tools_app').  Hyphens can cause issues during imports.
 
-One Paragraph of project description goes here
+One paragraph of project description goes here
 
 ## Table of Contents
 1. [$Toolname Python API Wrapper](#$Toolname-Python-API-Wrapper)
@@ -24,8 +24,8 @@ One Paragraph of project description goes here
 There is no formal installation process at this time, but using [git subtrees](https://www.atlassian.com/git/tutorials/git-subtree) is strongly recommended.  Unfortunately there is no 'helper' integration for git subtrees in VS Code, so using the actual git commands are necessary:
 
 ```bash
-git subtree add --prefix tools/$toolname https://github.com/epopisces/tools_$toolname master --squash
-git fetch https://github.com/epopisces/tools_$toolname master
+git subtree add --prefix tools/$toolname https://github.com/authorname/tools_$toolname master --squash
+git fetch https://github.com/authorname/tools_$toolname master
 
 # Breaking the above down, the following command creates the subtree and the connection to the remote repo
 '''
@@ -65,11 +65,11 @@ The differences between git subtrees and git submodules are described in depth [
 The below assumes you are using the repo as a subtree as described above.  Note this will require creating a empty `__init__.py` file in the 'tools' folder if there is not one present already so Python's import function can traverse the directories to get to the tool.
 ```python
 import os
-from tools.$toolname import $toolname_api as bbk
+from tools.toolname import toolname_api as shortname
 
-acct_email = os.getenv('$toolname_email')        # Use environment variable by this name to store a username for the API user
-acct_pass = os.getenv('$toolname_pass')       # Use environment variable by this name to store a password for the API user
-bb = bbk.BaseBrick(acct_email, acct_pass)
+acct_email = os.getenv('toolname_email')        # Use environment variable by this name to store a username for the API user
+acct_pass = os.getenv('toolname_pass')       # Use environment variable by this name to store a password for the API user
+bb = shortname.ObjectClass(acct_email, acct_pass)
 
 abbrev.{function-name}({parameters})
 ```
@@ -100,7 +100,7 @@ Explain how to run the automated tests
 
 ### Authors
 
-* [**epopisces**](https://github.com/epopisces) - Created the $toolname_api
+* [**authorname**](https://github.com/authorname) - Created the toolname_api
 
 See also the list of [contributors](https://github.com/<projname>/contributors) who participated in this project.
 
@@ -111,7 +111,6 @@ This project is licensed under an MIT standard license - see the [LICENSE.md](LI
 ### Acknowledgments
 
 * [epopisces](https://github.com/epopisces) created the project template and boilerplate code used for this project
-* Thanks to [PurpleBooth](https://gist.github.com/PurpleBooth/) & [dbader](https://github.com/dbader/readme-template) for the README Template
 * I owe a lot to my understanding of API wrappers to
     * [igor-feoktistov](https://github.com/igor-feoktistov)'s [Infoblox-API-Python](https://github.com/Infoblox-Development/Infoblox-API-Python)
     * [tjarrettveracode](https://github.com/tjarrettveracode)'s [Veracode API Helper](https://github.com/tjarrettveracode/veracode-api-py/blob/master/veracode_api_py/apihelper.py)
