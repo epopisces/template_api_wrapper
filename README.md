@@ -112,3 +112,6 @@ This project is licensed under an MIT standard license - see the [LICENSE.md](LI
 
 * [epopisces](https://github.com/epopisces) created the project template and boilerplate code used for this project
 * Thanks to [PurpleBooth](https://gist.github.com/PurpleBooth/) & [dbader](https://github.com/dbader/readme-template) for the README Template
+* I owe a lot to my understanding of API wrappers to
+    * [igor-feoktistov](https://github.com/igor-feoktistov)'s [Infoblox-API-Python](https://github.com/Infoblox-Development/Infoblox-API-Python)
+    * [tjarrettveracode](https://github.com/tjarrettveracode)'s [Veracode API Helper](https://github.com/tjarrettveracode/veracode-api-py/blob/master/veracode_api_py/apihelper.py)
