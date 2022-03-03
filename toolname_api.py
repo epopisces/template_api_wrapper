@@ -153,8 +153,7 @@ class ObjectClass():
 
 if __name__ == "__main__":
     #? Remove this section if not accepting arguments from CLI
-    #region  #####     Argparse                                                     #####
-    #####################################################################################
+    #region #####=-   Argparse                                                ##########
     parser = argparse.ArgumentParser(description='short description of the module')
     parser.add_argument('-v','--var2', default=False, type=str, help='describe arg for when man or help is used')
     parser.add_argument('--var1', action='store_true', help='describe arg for when man or help is used')
