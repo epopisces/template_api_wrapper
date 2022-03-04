@@ -3,7 +3,7 @@
 .SYNOPSIS
   Initializes the API Wrapper template for use with a specific tool
 .DESCRIPTION
-  Performs find and replace operations to populate placeholder variables and perform 
+  Performs find and replace operations based on user input to populate placeholder variables and perform 
   cleanup on the repository
 .PARAMETER <Parameter_Name>
     <Brief description of parameter input required. Repeat this attribute if required>
@@ -21,7 +21,7 @@
   <Example goes here. Repeat this attribute for more than one example>
 #>
 
-#---------------------------------------------------------[Initializations]--------------------------------------------------------
+#-----------------------------------------------[Initializations]----------------------------------------------
 
 #Set Error Action to Silently Continue
 $ErrorActionPreference = "SilentlyContinue"
@@ -29,7 +29,7 @@ $ErrorActionPreference = "SilentlyContinue"
 #Dot Source required Function Libraries
 . "C:\Scripts\Functions\Logging_Functions.ps1"
 
-#----------------------------------------------------------[Declarations]----------------------------------------------------------
+#------------------------------------------------[Declarations]------------------------------------------------
 
 #Script Version
 $sScriptVersion = "0.1"
@@ -39,7 +39,7 @@ $sLogPath = ".\.vscode\logs"
 $sLogName = "Initialize-ToolTemplate.log"
 $sLogFile = Join-Path -Path $sLogPath -ChildPath $sLogName
 
-#-----------------------------------------------------------[Functions]------------------------------------------------------------
+#-------------------------------------------------[Functions]--------------------------------------------------
 
 
 Function Get-ToolName {
@@ -84,6 +84,10 @@ Function Confirm-ToolName {
     Process {
         Try {
             $RepoName = Split-Path -Leaf (git remote get-url origin | Split-Path -leaf).split('.')[0]
+            $ToolNameSpaceless = $ToolName -replace '\s', ''
+            $ToolNameLCase = $ToolNameSpaceless.ToLower()
+            $ToolNamePCase = (Get-Culture).TextInfo.ToTitleCase($($ToolName -Replace '[^0-9,A-Z]', ' ')) -Replace ' '
+            $ToolName
             # find and replace tools_toolname first: repo-name dependent, not user input
             # f&r camelcase ToolName
             # f&r lcase toolname
@@ -138,7 +142,7 @@ Function Set-PlaceholderVariables{
 }
 #>
 
-#-----------------------------------------------------------[Execution]------------------------------------------------------------
+#--------------------------------------------------[Execution]--------------------------------------------------
 
 #Log-Start -LogPath $sLogPath -LogName $sLogName -ScriptVersion $sScriptVersion
 Write-Host "oh hey there!"

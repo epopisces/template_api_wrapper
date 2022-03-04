@@ -46,7 +46,7 @@ It makes the following assumptions:
 
 If these assumptions are incorrect, [manual adjustments will be needed](#Manually-Modify-the-Template-for-Use) (the task can still be run first)
 
-> is a mermaid diagram really necessary?  Of course not.  But mermaid is awesome, so let's use one anyway
+> is a mermaid diagram really necessary?  No, no it is not.  But mermaid is awesome, so let's use one anyway
 
 ```mermaid
 %% tricky getting subgraphs not to re-order themselves.  Used invisible Container subgraph to force ordering
@@ -70,7 +70,8 @@ The one thing the task can't automate for you is populating the README--don't ne
 
 For more control, the steps that the Task would perform can be performed manually if preferred, and are enumerated below
 
-### 1. Find & Replace (VSCode: `Ctrl+Shift+h`) Targets
+1. Find & Replace (VSCode: `Ctrl+Shift+h`) Targets
+
 | Variable | Usage | Example | Notes |
 |--|--|--|--|
 | toolname | toolname_api.py| sprocketwidget ||
@@ -80,11 +81,17 @@ For more control, the steps that the Task would perform can be performed manuall
 | authorname | toolname_api.py| spock ||
 | repo_name | maintain.ps1 | tools_sprocketwidget_api | only necessary if tools are intended to be used via git subtrees |
 
-### 2. Delete this file (TEMPLATE.md)
-Once the repository is ready for use, this file can be removed to keep the repository clean.
+2. Delete this file (TEMPLATE.md)
 
-### 3. Update the README
-Don't neglect this step!  Update the documentation to reflect the usage and nature of the API wrapper.
+> Once the repository is ready for use, this file can be removed to keep the repository clean.
+
+3. Update the README
+
+> Don't neglect this step!  Update the documentation to reflect the usage and nature of the API wrapper.
+
+## Update the *_api.py File for the API in Question
+
+Search for lines starting with `# TODO` to see what must be updated (for example defining for the API wrapper what methods are supported by the API)
 
 # API Wrapper Development Tips
 
