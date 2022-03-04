@@ -1,2 +1,3 @@
 # Requirements for import/install.
 # See https://pip.readthedocs.io/en/1.1/requirements.html
+requests

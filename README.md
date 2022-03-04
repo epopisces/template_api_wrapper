@@ -1,16 +1,16 @@
-# $Toolname Tools
+# Toolname Tools
 
-> Tools for interacting with $Toolname, including a Python API wrapper
+> Tools for interacting with Toolname, including a Python API wrapper
 
 **NOTE:** For Python tool repo names, stick with underscores (eg 'tools_app').  Hyphens can cause issues during imports.
 
 One paragraph of project description goes here
 
 ## Table of Contents
-1. [$Toolname Python API Wrapper](#$Toolname-Python-API-Wrapper)
+1. [Toolname Python API Wrapper](#Toolname-Python-API-Wrapper)
 2. [Metadata](#Metadata)
 
-![](plalceholder.png)
+![](placeholder.png)
 
 ## Getting Started
 
@@ -24,8 +24,8 @@ One paragraph of project description goes here
 There is no formal installation process at this time, but using [git subtrees](https://www.atlassian.com/git/tutorials/git-subtree) is strongly recommended.  Unfortunately there is no 'helper' integration for git subtrees in VS Code, so using the actual git commands are necessary:
 
 ```bash
-git subtree add --prefix tools/$toolname https://github.com/authorname/tools_$toolname master --squash
-git fetch https://github.com/authorname/tools_$toolname master
+git subtree add --prefix tools/Toolname https://github.com/authorname/tools_Toolname master --squash
+git fetch https://github.com/authorname/tools_Toolname master
 
 # Breaking the above down, the following command creates the subtree and the connection to the remote repo
 '''
@@ -45,16 +45,16 @@ git fetch <source-repo> <branch>
 
 But what if the remote tool repo gets updated?  Pulling the latest changes is super easy, barely an inconvenience: just use the same command above with 'git subtree pull' instead of 'git subtree add':
 ```
-git subtree pull --prefix tools/$toolname https://github.com/epopisces/tools_$toolname master --squash
+git subtree pull --prefix tools/Toolname https://github.com/epopisces/tools_Toolname master --squash
 ```
 
 Alternately git submodules can also be used; however, git submodules are not as easy to maintain and keep updated.  The recommendation is only to use git submodules if the tools repo is also going to be developed as part of the project, instead of just used as a static library by the main project.
 
 The differences between git subtrees and git submodules are described in depth [in this article](https://martowen.com/2016/05/01/git-submodules-vs-git-subtrees/#:~:text=The%20simplest%20way%20to%20think,specific%20commit%20in%20another%20repository.&text=Subtrees%20are%20easier%20to%20pull,copies%20of%20the%20original%20repository).
 
-# $Toolname Python API Wrapper
+# Toolname Python API Wrapper
 
-## $toolname_api.py
+## Toolname_api.py
 
 ### Capabilities
 * Authentication against API
@@ -100,7 +100,7 @@ Explain how to run the automated tests
 
 ### Authors
 
-* [**authorname**](https://github.com/authorname) - Created the toolname_api
+* [**authorname**](https://github.com/authorprofile) - Created the toolname_api
 
 See also the list of [contributors](https://github.com/<projname>/contributors) who participated in this project.
 

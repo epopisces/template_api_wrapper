@@ -32,16 +32,16 @@ from requests.exceptions import RequestException
 
 #from tools.toolname import toolname_api as tool
 
-class TOOLNAMEAPIException(Exception):
+class ToolNameAPIException(Exception):
     pass
 
-class TOOLNAMENotFoundException(Exception):
+class ToolNameNotFoundException(Exception):
     pass
 
-class TOOLNAMEGeneralException(Exception):
+class ToolNameGeneralException(Exception):
     pass
 
-class TOOLNAMEInvalidInputException(Exception):
+class ToolNameInvalidInputException(Exception):
     pass
 
 
@@ -78,7 +78,7 @@ class ObjectClass():
         method = method.upper() # just in case (puns!)
         
         if method not in self.methods_supported:
-            raise TOOLNAMEAPIException(f"{method} is not a HTTP method supported by this API")
+            raise ToolNameAPIException(f"{method} is not a HTTP method supported by this API")
 
         #* Make any method-dependent alterations here, eg add Content-type to headers for POST
 
@@ -101,7 +101,7 @@ class ObjectClass():
         
         except requests.exceptions.RequestException as e:
             logging.exception("Connection error")
-            raise TOOLNAMEAPIException(e)
+            raise ToolNameAPIException(e)
 
         # handle status codes in response        
         if not (r.status_code == requests.codes.ok):
@@ -132,7 +132,7 @@ class ObjectClass():
         method = method.upper() # just in case (puns!)
         
         if method not in self.methods_supported:
-            raise TOOLNAMEAPIException(f"{method} is not a HTTP method supported by this API")
+            raise ToolNameAPIException(f"{method} is not a HTTP method supported by this API")
 
         #* Make any method-dependent alterations here, eg add Content-type to headers for POST
 
