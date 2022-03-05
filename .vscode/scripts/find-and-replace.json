@@ -1,0 +1,46 @@
+{
+    "toolNameLCase": {
+        "example": "sprocketwidget",
+        "files": [
+            "toolname_api.py",
+            "maintain.ps1",
+            "tests",
+            "README.md"
+        ]
+    },
+    "toolNamePCase": {
+        "example": "SprocketWidget",
+        "files": [
+            "toolname_api.py"
+        ]
+    },
+    "toolNameShort": {
+        "example": "swt",
+        "files": [
+            "toolname_api.py",
+            "tests.py",
+            "README.md"
+        ]
+    },
+    "repoName": {
+        "example": "tools_sprocketwidget_api",
+        "files": [
+            "maintain.ps1",
+            "README.md"
+        ]
+    },
+    "authorName": {
+        "example": "spock",
+        "files": [
+            "toolname_api.py",
+            "README.md"
+        ]
+    },
+    "authorProfile": {
+        "example": "https://github.com/spock",
+        "files": [
+            "toolname_api.py",
+            "README.md"
+        ]
+    }
+}

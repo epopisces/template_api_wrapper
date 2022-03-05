@@ -45,7 +45,7 @@ class ToolNameInvalidInputException(Exception):
     pass
 
 
-class ObjectClass():
+class ToolNameAPI():
     """A quick description of the class
 
     Attributes:
@@ -163,4 +163,4 @@ if __name__ == "__main__":
 
     # Uncomment for testing setup   
     var1 = True
-    oc = ObjectClass(var1, var2=args.var2)
+    oc = ToolNameAPI(var1, var2=args.var2)

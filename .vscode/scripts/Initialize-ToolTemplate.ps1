@@ -87,7 +87,9 @@ Function Confirm-ToolName {
             $ToolNameSpaceless = $ToolName -replace '\s', ''
             $ToolNameLCase = $ToolNameSpaceless.ToLower()
             $ToolNamePCase = (Get-Culture).TextInfo.ToTitleCase($($ToolName -Replace '[^0-9,A-Z]', ' ')) -Replace ' '
-            $ToolName
+            $ToolNameShort = ""
+            $AuthorName = ""
+            $AuthorProfile = ""
             # find and replace tools_toolname first: repo-name dependent, not user input
             # f&r camelcase ToolName
             # f&r lcase toolname
@@ -104,9 +106,9 @@ Function Confirm-ToolName {
 
     End {
         If($?) {
+            Return $ToolName
             Log-Write -LogPath $sLogFile -LineValue "Completed Successfully."
             Log-Write -LogPath $sLogFile -LineValue " "
-            Return $ToolName
         }
     }
 }
