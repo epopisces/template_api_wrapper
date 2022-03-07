@@ -5,7 +5,7 @@
         "files": [
             "toolname_api.py",
             "maintain.ps1",
-            "tests",
+            "tests.py",
             "README.md"
         ]
     },

@@ -32,7 +32,7 @@ $ErrorActionPreference = "SilentlyContinue"
 #------------------------------------------------[Declarations]------------------------------------------------
 
 #Script Version
-$ScriptVersion = "0.1"
+$sScriptVersion = "0.1"
 
 #Log File Info
 $sLogPath = ".\.vscode\logs"
@@ -73,7 +73,7 @@ Function Get-ToolName {
     }
 }
 
-Function Confirm-ToolName {
+Function Format-ToolName {
     Param(
         [Parameter(Mandatory)]
         [string] $ToolName
@@ -87,18 +87,44 @@ Function Confirm-ToolName {
             $ToolNameSpaceless = $ToolName -replace '\s', ''
             $ToolNameLCase = $ToolNameSpaceless.ToLower()
             $ToolNamePCase = (Get-Culture).TextInfo.ToTitleCase($($ToolName -Replace '[^0-9,A-Z]', ' ')) -Replace ' '
-            $ToolNameShort = ""
-            $AuthorName = ""
-            $AuthorProfile = ""
+            $ToolName.Split(' ') | ForEach {$ToolNameShort += $_[0]}
+            If ($ToolNameShort.Length -lt 3) {
+                
+                If ($ToolNameShort.Length -lt 2) {
+                    $vowel = "AEIOU"
+                    $cons = $null
+                    $second = $ToolName.Substring(1) 
+                    $second = $second.ToCharArray()
+
+                    ForEach ($letter in $second){ If ($vowel -notmatch $letter){ $cons = $cons + $letter } }
+
+                    $SecondConsonant = $cons.substring(0,1)
+                    $ToolNameShort += $SecondConsonant
+                }
+                $LastChar = $ToolName.Substring($ToolName.Length - 1)
+                $ToolNameShort += $LastChar
+            } ElseIf ( $ToolNameShort.Length -gt 3 ) {
+                $ToolNameShort = $ToolNameShort.Substring(0,3)
+            }
+            $ToolNameShort = $ToolNameShort.ToLower()
+            $AuthorName = git config --global user.name
+            $AuthorProfile = git remote get-url origin | Split-Path
             # find and replace tools_toolname first: repo-name dependent, not user input
             # f&r camelcase ToolName
             # f&r lcase toolname
             # f&r shortname tnm #? permit user override?
             # authorname, #authorprofile
+            Write-Host 'repon = '$RepoName
+            Write-Host 'lcase = '$ToolNameLCase
+            Write-Host 'pcase = '$ToolNamePCase
+            Write-Host 'short = '$ToolNameShort
+            Write-Host 'authn = '$AuthorName
+            Write-Host 'authp = '$AuthorProfile
 
         }
         
         Catch {
+            Write-Host $_.Exception
             Log-Error -LogPath $sLogFile -ErrorDesc $_.Exception -ExitGracefully $True
         Break
         }
@@ -114,44 +140,15 @@ Function Confirm-ToolName {
 }
 
 
-<#
-Function Set-PlaceholderVariables{
-  Param(
-
-  )
-  
-  Begin{
-    Log-Write -LogPath $sLogFile -LineValue "<description of what is going on>..."
-  }
-  
-  Process{
-    Try{
-      <code goes here>
-    }
-    
-    Catch{
-      Log-Error -LogPath $sLogFile -ErrorDesc $_.Exception -ExitGracefully $True
-      Break
-    }
-  }
-  
-  End{
-    If($?){
-      Log-Write -LogPath $sLogFile -LineValue "Completed Successfully."
-      Log-Write -LogPath $sLogFile -LineValue " "
-    }
-  }
-}
-#>
-
 #--------------------------------------------------[Execution]--------------------------------------------------
 
-#Log-Start -LogPath $sLogPath -LogName $sLogName -ScriptVersion $sScriptVersion
+#Log-Start -LogPath $sLogPath -LogName $sLogName -ScriptVersion $ScriptVersion
 Write-Host "oh hey there!"
 $InLoop = $true
 While ($InLoop) {
     $ToolName = Get-ToolName("")
-    Confirm-ToolName($ToolName)
+    Format-ToolName($ToolName)
+    break
 }
 
 

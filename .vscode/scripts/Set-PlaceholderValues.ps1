@@ -31,7 +31,7 @@ $ErrorActionPreference = "SilentlyContinue"
 #------------------------------------------------[Declarations]------------------------------------------------
 
 #Script Version
-$ScriptVersion = "0.1"
+$sScriptVersion = "0.1"
 
 #Log File Info
 $sLogPath = ".\.vscode\logs"
@@ -40,7 +40,7 @@ $sLogFile = Join-Path -Path $sLogPath -ChildPath $sLogName
 
 #-------------------------------------------------[Functions]--------------------------------------------------
 
-Function Get-PlaceholderValues {
+Function Set-AllPlaceholderValues {
     Param(
         [Parameter()]
         [string] $ToolName
@@ -52,6 +52,7 @@ Function Get-PlaceholderValues {
         $PlaceholderObj = Get-Content -Path ".vscode/scripts/find-and-replace.json" | ConvertFrom-Json
         $PlaceholderObj.PSObject.Properties | ForEach-Object {
             Write-Host $_.Name
+            Write-Host $_.Value.placeholder
             Write-Host $_.Value.files | ForEach-Object {
                 Write-Host $_.Name
                 Write-Host $_.Value
@@ -99,5 +100,8 @@ Function Set-PlaceholderValue {
     }
 }
 
+
+#--------------------------------------------------[Execution]--------------------------------------------------
+
 # TODO Remove after testing
-Set-PlaceholderValues
+Set-AllPlaceholderValues('Microsoft Excel')

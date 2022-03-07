@@ -1,0 +1,19 @@
+{
+    "testLCase": {
+        "placeholder": "testcase",
+        "example": "sprocketwidget",
+        "files": [
+            "toolname_api.py",
+            "maintain.ps1",
+            "tests.py",
+            "README.md"
+        ]
+    },
+    "testPCase": {
+        "placeholder": "TestCase",
+        "example": "SprocketWidget",
+        "files": [
+            "tests.py"
+        ]
+    }
+}
