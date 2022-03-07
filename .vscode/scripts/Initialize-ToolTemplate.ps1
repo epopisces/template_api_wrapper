@@ -91,14 +91,15 @@ Function Format-ToolName {
             If ($ToolNameShort.Length -lt 3) {
                 
                 If ($ToolNameShort.Length -lt 2) {
-                    $vowel = "AEIOU"
-                    $cons = $null
-                    $second = $ToolName.Substring(1) 
-                    $second = $second.ToCharArray()
+                    #? From https://www.reddit.com/r/PowerShell/comments/9olsg8/selecting_first_letter_of_a_string_then_the_first/
+                    $Vowels = "AEIOU"
+                    $Consonants = $null
+                    $Second = $ToolName.Substring(1)
+                    $Second = $Second.ToCharArray()
 
-                    ForEach ($letter in $second){ If ($vowel -notmatch $letter){ $cons = $cons + $letter } }
+                    ForEach ($Letter In $Second){ If ($Vowels -NotMatch $Letter){ $Consonants = $Consonants + $Letter } }
 
-                    $SecondConsonant = $cons.substring(0,1)
+                    $SecondConsonant = $Consonants.substring(0,1)
                     $ToolNameShort += $SecondConsonant
                 }
                 $LastChar = $ToolName.Substring($ToolName.Length - 1)
