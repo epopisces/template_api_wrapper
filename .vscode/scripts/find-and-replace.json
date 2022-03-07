@@ -1,5 +1,6 @@
 {
     "toolNameLCase": {
+        "placeholder": "toolname",
         "example": "sprocketwidget",
         "files": [
             "toolname_api.py",
@@ -9,12 +10,14 @@
         ]
     },
     "toolNamePCase": {
+        "placeholder": "ToolName",
         "example": "SprocketWidget",
         "files": [
             "toolname_api.py"
         ]
     },
     "toolNameShort": {
+        "placeholder": "tln",
         "example": "swt",
         "files": [
             "toolname_api.py",
@@ -23,6 +26,7 @@
         ]
     },
     "repoName": {
+        "placeholder": "reponame",
         "example": "tools_sprocketwidget_api",
         "files": [
             "maintain.ps1",
@@ -30,6 +34,7 @@
         ]
     },
     "authorName": {
+        "placeholder": "authorname",
         "example": "spock",
         "files": [
             "toolname_api.py",
@@ -37,6 +42,7 @@
         ]
     },
     "authorProfile": {
+        "placeholder": "authorprofile",
         "example": "https://github.com/spock",
         "files": [
             "toolname_api.py",

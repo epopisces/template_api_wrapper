@@ -27,12 +27,12 @@
 $ErrorActionPreference = "SilentlyContinue"
 
 #Dot Source required Function Libraries
-. "C:\Scripts\Functions\Logging_Functions.ps1"
+. Set-PlaceholderValues.ps1
 
 #------------------------------------------------[Declarations]------------------------------------------------
 
 #Script Version
-$sScriptVersion = "0.1"
+$ScriptVersion = "0.1"
 
 #Log File Info
 $sLogPath = ".\.vscode\logs"

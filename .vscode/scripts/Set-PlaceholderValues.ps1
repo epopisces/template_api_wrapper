@@ -1,17 +1,9 @@
-
-
-$PlaceholderObj = Get-Content ".vscode/scripts/find-and-replace.json" | ConvertFrom-Json
-
-#Write-Host $PlaceholderObj.toolNameLCase.files
-Write-Host $PlaceholderObj
-
 #requires -version 2
 <#
 .SYNOPSIS
-  Initializes the API Wrapper template for use with a specific tool
+    Performs Find & Replace operations based on input + JSON definition
 .DESCRIPTION
-  Performs find and replace operations based on user input to populate placeholder variables and perform 
-  cleanup on the repository
+    Performs find and replace operations based on user input to populate placeholder variables
     #? Why so complicated, with the JSON definition and all for a simple find-and-replace?
     #? Repeatability/reusability.  If well-defined, this script & corresponding task can be
     #? used with all templates
@@ -39,7 +31,7 @@ $ErrorActionPreference = "SilentlyContinue"
 #------------------------------------------------[Declarations]------------------------------------------------
 
 #Script Version
-$sScriptVersion = "0.1"
+$ScriptVersion = "0.1"
 
 #Log File Info
 $sLogPath = ".\.vscode\logs"
@@ -48,8 +40,7 @@ $sLogFile = Join-Path -Path $sLogPath -ChildPath $sLogName
 
 #-------------------------------------------------[Functions]--------------------------------------------------
 
-
-Function Set-PlaceholderValues {
+Function Get-PlaceholderValues {
     Param(
         [Parameter()]
         [string] $ToolName
@@ -58,7 +49,17 @@ Function Set-PlaceholderValues {
     Begin {}
 
     Process {
-        Write-Host $ToolName
+        $PlaceholderObj = Get-Content -Path ".vscode/scripts/find-and-replace.json" | ConvertFrom-Json
+        $PlaceholderObj.PSObject.Properties | ForEach-Object {
+            Write-Host $_.Name
+            Write-Host $_.Value.files | ForEach-Object {
+                Write-Host $_.Name
+                Write-Host $_.Value
+            }
+        }
+        #Write-Host $PlaceholderObj.toolNameLCase.files
+        #Write-Host $PlaceholderObj
+
     }
 
     End {
@@ -69,3 +70,34 @@ Function Set-PlaceholderValues {
         }
     }
 }
+
+Function Set-PlaceholderValue {
+    Param(
+        [Parameter()]
+        [string] $Placeholder,
+        [Parameter()]
+        [string] $Value,
+        [Parameter()]
+        [string] $Location
+    )
+
+    Begin {}
+
+    Process {
+        ((Get-Content -Path $Location -Raw) -Replace $Placeholder, $Value) | Set-Content -Path $Location
+        #Write-Host $PlaceholderObj.toolNameLCase.files
+        #Write-Host $PlaceholderObj
+
+    }
+
+    End {
+        If($?) {
+            Return $ToolName
+            Log-Write -LogPath $sLogFile -LineValue "Completed Successfully."
+            Log-Write -LogPath $sLogFile -LineValue " "
+        }
+    }
+}
+
+# TODO Remove after testing
+Set-PlaceholderValues
