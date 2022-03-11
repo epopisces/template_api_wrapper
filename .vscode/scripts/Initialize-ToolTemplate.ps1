@@ -51,7 +51,7 @@ Function Get-ToolName {
     Begin {}
 
     Process {
-        Write-Host $ToolName
+        Write-Host "The name passed as an argument is "$ToolName
         If ( $ToolName -eq "" ) {
             Try {
                 $ToolName = Read-Host -Prompt "What is the tool this API wrapper is for (eg 'National Parks')?"
@@ -87,7 +87,7 @@ Function Format-ToolName {
             $ToolNameSpaceless = $ToolName -replace '\s', ''
             $ToolNameLCase = $ToolNameSpaceless.ToLower()
             $ToolNamePCase = (Get-Culture).TextInfo.ToTitleCase($($ToolName -Replace '[^0-9,A-Z]', ' ')) -Replace ' '
-            $ToolName.Split(' ') | ForEach {$ToolNameShort += $_[0]}
+            $ToolName.Split(' ') | ForEach-Object {$ToolNameShort += $_[0]}
             If ($ToolNameShort.Length -lt 3) {
                 
                 If ($ToolNameShort.Length -lt 2) {
@@ -121,19 +121,29 @@ Function Format-ToolName {
             Write-Host 'short = '$ToolNameShort
             Write-Host 'authn = '$AuthorName
             Write-Host 'authp = '$AuthorProfile
-
+            
+            $ToolNameObj = @{
+                "toolNameLCase" = $RepoName;
+                "toolNamePCase" = $ToolNameLCase;
+                "toolNameShort" = $ToolNamePCase;
+                "repoName" = $ToolNameShort;
+                "authorName" = $AuthorName;
+                "authorProfile" = $AuthorProfile
+            }
+            
+            $ToolNameObj
         }
+        Catch {}
         
-        Catch {
-            Write-Host $_.Exception
-            Log-Error -LogPath $sLogFile -ErrorDesc $_.Exception -ExitGracefully $True
-        Break
-        }
+        # Catch {
+        #     Write-Host $_.Exception
+        #     Log-Error -LogPath $sLogFile -ErrorDesc $_.Exception -ExitGracefully $True
+        # Break
+        # }
     }
 
     End {
         If($?) {
-            Return $ToolName
             Log-Write -LogPath $sLogFile -LineValue "Completed Successfully."
             Log-Write -LogPath $sLogFile -LineValue " "
         }

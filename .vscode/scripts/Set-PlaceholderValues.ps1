@@ -49,14 +49,24 @@ Function Set-AllPlaceholderValues {
     Begin {}
 
     Process {
-        $PlaceholderObj = Get-Content -Path ".vscode/scripts/find-and-replace.json" | ConvertFrom-Json
+        $ToolNameObj = Format-ToolName -ToolName $ToolName
+        $PlaceholderObj = Get-Content -Path ".vscode/scripts/find-and-replace-test.json" | ConvertFrom-Json
         $PlaceholderObj.PSObject.Properties | ForEach-Object {
-            Write-Host $_.Name
-            Write-Host $_.Value.placeholder
-            Write-Host $_.Value.files | ForEach-Object {
-                Write-Host $_.Name
-                Write-Host $_.Value
+            Try {
+                $Placeholder = $_.Value.placeholder
+                $Key = $_.Name
+                $_.Value.files | ForEach-Object {
+                    Set-PlaceholderValue -Placeholder $Placeholder -Value $ToolNameObj[$Key] -Location $_
+                    Write-Host "Writing "$Key" done for "$_.Name
+                    #Write-Host $_.Value
+                }
             }
+            Catch {
+                Write-Host "Well that didn't work"
+            }
+            #Write-Host $_.Name
+            #Write-Host $_.Value.placeholder
+            
         }
         #Write-Host $PlaceholderObj.toolNameLCase.files
         #Write-Host $PlaceholderObj
@@ -65,7 +75,6 @@ Function Set-AllPlaceholderValues {
 
     End {
         If($?) {
-            Return $ToolName
             Log-Write -LogPath $sLogFile -LineValue "Completed Successfully."
             Log-Write -LogPath $sLogFile -LineValue " "
         }

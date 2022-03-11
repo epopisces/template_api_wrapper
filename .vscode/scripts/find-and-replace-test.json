@@ -1,19 +1,44 @@
-{
-    "testLCase": {
-        "placeholder": "testcase",
+{   
+    "toolNameLCase": {
+        "placeholder": "toolname",
         "example": "sprocketwidget",
         "files": [
-            "toolname_api.py",
-            "maintain.ps1",
-            "tests.py",
-            "README.md"
+            "testtarget.py"
         ]
     },
-    "testPCase": {
-        "placeholder": "TestCase",
+    "toolNamePCase": {
+        "placeholder": "ToolName",
         "example": "SprocketWidget",
         "files": [
-            "tests.py"
+            "testtarget.py"
+        ]
+    },
+    "toolNameShort": {
+        "placeholder": "tln",
+        "example": "swt",
+        "files": [
+            "testtarget.py"
+        ]
+    },
+    "repoName": {
+        "placeholder": "reponame",
+        "example": "tools_sprocketwidget_api",
+        "files": [
+            "testtarget.py"
+        ]
+    },
+    "authorName": {
+        "placeholder": "authorname",
+        "example": "spock",
+        "files": [
+            "testtarget.py"
+        ]
+    },
+    "authorProfile": {
+        "placeholder": "authorprofile",
+        "example": "https://github.com/spock",
+        "files": [
+            "testtarget.py"
         ]
     }
 }
