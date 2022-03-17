@@ -1,3 +1,4 @@
+#! NOTE: This has been integrated into the Initialize-ToolTemplate.ps1 module.  If justified it can be split out later
 #requires -version 2
 <#
 .SYNOPSIS
@@ -27,6 +28,8 @@
 
 #Set Error Action to Silently Continue
 $ErrorActionPreference = "SilentlyContinue"
+
+. "$PSScriptRoot\Initialize-ToolTemplate.ps1"
 
 #------------------------------------------------[Declarations]------------------------------------------------
 
@@ -63,6 +66,7 @@ Function Set-AllPlaceholderValues {
             }
             Catch {
                 Write-Host "Well that didn't work"
+                Write-Host $Error[0]
             }
             #Write-Host $_.Name
             #Write-Host $_.Value.placeholder

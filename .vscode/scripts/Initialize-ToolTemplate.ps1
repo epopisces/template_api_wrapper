@@ -150,17 +150,89 @@ Function Format-ToolName {
     }
 }
 
+Function Set-AllPlaceholderValues {
+    Param(
+        [Parameter()]
+        [string] $ToolName
+    )
+
+    Begin {}
+
+    Process {
+        $ToolNameObj = Format-ToolName -ToolName $ToolName
+        $PlaceholderObj = Get-Content -Path ".vscode/scripts/find-and-replace-test.json" | ConvertFrom-Json
+        $PlaceholderObj.PSObject.Properties | ForEach-Object {
+            Try {
+                $Placeholder = $_.Value.placeholder
+                $Key = $_.Name
+                $_.Value.files | ForEach-Object {
+                    Set-PlaceholderValue -Placeholder $Placeholder -Value $ToolNameObj[$Key] -Location $_
+                    Write-Host "Writing "$Key" done for "$_.Name
+                    #Write-Host $_.Value
+                }
+            }
+            Catch {
+                Write-Host "Well that didn't work"
+                Write-Host $Error[0]
+            }
+            #Write-Host $_.Name
+            #Write-Host $_.Value.placeholder
+            
+        }
+        #Write-Host $PlaceholderObj.toolNameLCase.files
+        #Write-Host $PlaceholderObj
+
+    }
+
+    End {
+        If($?) {
+            Log-Write -LogPath $sLogFile -LineValue "Completed Successfully."
+            Log-Write -LogPath $sLogFile -LineValue " "
+        }
+    }
+}
+
+Function Set-PlaceholderValue {
+    Param(
+        [Parameter()]
+        [string] $Placeholder,
+        [Parameter()]
+        [string] $Value,
+        [Parameter()]
+        [string] $Location
+    )
+
+    Begin {}
+
+    Process {
+        ((Get-Content -Path $Location -Raw) -Replace $Placeholder, $Value) | Set-Content -Path $Location
+        #Write-Host $PlaceholderObj.toolNameLCase.files
+        #Write-Host $PlaceholderObj
+
+    }
+
+    End {
+        If($?) {
+            Return $ToolName
+            Log-Write -LogPath $sLogFile -LineValue "Completed Successfully."
+            Log-Write -LogPath $sLogFile -LineValue " "
+        }
+    }
+}
+
 
 #--------------------------------------------------[Execution]--------------------------------------------------
 
 #Log-Start -LogPath $sLogPath -LogName $sLogName -ScriptVersion $ScriptVersion
-Write-Host "oh hey there!"
-$InLoop = $true
-While ($InLoop) {
-    $ToolName = Get-ToolName("")
-    Format-ToolName($ToolName)
-    break
-}
+# Write-Host "oh hey there!"
+# $InLoop = $true
+# While ($InLoop) {
+#     $ToolName = Get-ToolName("")
+#     Format-ToolName($ToolName)
+#     break
+# }
 
 
+# TODO Remove after testing
+Set-AllPlaceholderValues('Microsoft Excel')
 #Log-Finish -LogPath $sLogFile

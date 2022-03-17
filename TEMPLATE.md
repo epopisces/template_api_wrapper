@@ -1,6 +1,16 @@
 # TEMPLATE USAGE
 > This template has been designed to provide a springboard or starting point for creating an API wrapper written in Python
 
+# Features
+> See [Getting Started](#Getting-Started) for usage
+
+Tasks for Automation
+* [Initialize Python Virtual Environment](##Set-up-the-Virtual-Environment)
+* [Initialize Template for Use](##Initialize-the-Template-for-Use-(recommended))
+
+## WIP Features
+
+
 ## Prerequisites
 Intended for use for a Python project involving making HTTP requests.  As such, the following prerequisites are assumed:
 * Python 3.x
@@ -18,7 +28,7 @@ Name the repository using the naming convention that makes sense for the use cas
 
 ## Set up the Virtual Environment
 
-The included VSCode Task 'Initialize Python Virtual Environment' provides an automated mechanism using the below commands.  If different parameters are desired, the commands can be run independently instead of using the Task.
+The included VSCode Task 'Initialize Python Virtual Environment' (`Ctrl+Shift+P > Tasks: Run Task > Initialize Python Virtual Environment`) provides an automated mechanism using the below commands.  If different parameters are desired, the commands can be run independently instead of using the Task.
 
 ```powershell
 # create a virtual environment (will generate 'env' dir)
@@ -36,7 +46,7 @@ python -m pip install -r .\requirements.txt
 
 See the [VSCode doc on Python environments](https://code.visualstudio.com/docs/python/environments) for more details
 
-## Use the Included Task to Initialize the Template for Use (recommended)
+## Initialize the Template for Use (recommended)
 
 This template includes a vscode task to automate the replacement of placeholder variables and other cleanup actions for convenience
 
@@ -98,4 +108,4 @@ Search for lines starting with `# TODO` to see what must be updated (for example
 Some useful tips to remember:
 
 * Once the tool is ready for use, use `pip freeze > requirements.txt` to update the requirements file so future users reap the benefits
-    * Only use in conjunction with a virtual environment to avoid adding all the global 
+    * Only use in conjunction with a virtual environment to avoid adding all to your global config
