@@ -18,6 +18,20 @@
             "problemMatcher": []
         },
         {
+            "label": "Test",
+            "type": "shell",
+            "command": "./.vscode/scripts/test.ps1",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "Initalize Python Virtual Environment",
             "type": "shell",
             "command": "./.vscode/scripts/Initialize-PyVirtualEnv.ps1",

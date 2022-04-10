@@ -1,116 +1,111 @@
-# Toolname Tools
+# TEMPLATE USAGE
+> This template has been designed to provide a springboard or starting point for creating an API wrapper written in Python 3
 
-> Tools for interacting with Toolname, including a Python API wrapper
+# Features
+> See [Getting Started](#Getting-Started) for usage
 
-**NOTE:** For Python tool repo names, stick with underscores (eg 'tools_app').  Hyphens can cause issues during imports.
+Tasks for Automation
+* [Initialize Python Virtual Environment](##Set-up-the-Virtual-Environment)
+* [Initialize Template for Use](##Initialize-the-Template-for-Use-(recommended))
 
-One paragraph of project description goes here
+## WIP Features
+The following features are not yet implemented
+> Let me know with a GitHub Issue if there are any 
 
-## Table of Contents
-1. [Toolname Python API Wrapper](#Toolname-Python-API-Wrapper)
-2. [Metadata](#Metadata)
+## Prerequisites
+Intended for use for a Python project involving making HTTP requests.  As such, the following prerequisites are assumed:
+* Python 3.x
 
-![](placeholder.png)
+In order to use the included VSCode tasks/automation, the following is required:
+* VSCode (or run the PowerShell script manually)
+* PowerShell
+* accurate git config (eg `user.name`)
 
-## Getting Started
+# Getting Started
 
-### Prerequisites
+Use [this GitHub generate link 'generate from template' link](https://github.com/epopisces/template_api_wrapper/generate) to generate a repo from it.  Alternately, navigate to the repository in GitHub and select `Use this template`.  For templates that have been used before, they will appear in the `Repository template` dropdown in the new repository process in GitHub.
 
-- Python 3
-- packages listed in the [requirements.txt](requirements.txt) file
+Name the repository using the naming convention that makes sense for the use case.  For example, when building an API wrapper for a tool named 'Sprocket', use the name `sprocket_api_wrapper`
 
-### Installation
+## Set up the Virtual Environment
 
-There is no formal installation process at this time, but using [git subtrees](https://www.atlassian.com/git/tutorials/git-subtree) is strongly recommended.  Unfortunately there is no 'helper' integration for git subtrees in VS Code, so using the actual git commands are necessary:
+The included VSCode Task 'Initialize Python Virtual Environment' (`Ctrl+Shift+P > Tasks: Run Task > Initialize Python Virtual Environment`) provides an automated mechanism using the below commands.  If different parameters are desired, the commands can be run independently instead of using the Task.
 
-```bash
-git subtree add --prefix tools/Toolname https://github.com/authorname/tools_Toolname master --squash
-git fetch https://github.com/authorname/tools_Toolname master
+```powershell
+# create a virtual environment (will generate 'env' dir)
+py -3 -m venv .env
 
-# Breaking the above down, the following command creates the subtree and the connection to the remote repo
-'''
-git subtree add --prefix <dest-path> <source-repo> <branch> --squash
-    --prefix <path>         specify the destination folder (relative to current working directory).
-    <source-repo>           the repository that is being pulled from
-    <branch>                branch to be pulled (usually 'master', may be 'main' if more recently created in GitHub)
-    --squash                optional but recommended command to discard the commit history of the source repo
-'''
-#The following command fetches the content of that repo so it will be available for use
-'''
-git fetch <source-repo> <branch>
-    <source-repo>           the repository that is being pulled from
-    <branch>                branch to be pulled (usually 'master', may be 'main' if more recently created in GitHub)
-'''
+# activate the virtual environment
+.\.venv\Scripts\activate
+
+$CurInterpreterLoc = (Get-Command python).Path
+Write-Host "The interpreter now in use is located at $CurInterpreterLoc"
+
+# install packages listed in requirements
+python -m pip install -r .\requirements.txt
 ```
 
-But what if the remote tool repo gets updated?  Pulling the latest changes is super easy, barely an inconvenience: just use the same command above with 'git subtree pull' instead of 'git subtree add':
+See the [VSCode doc on Python environments](https://code.visualstudio.com/docs/python/environments) for more details
+
+## Initialize the Template for Use (recommended)
+
+This template includes a vscode task to automate the replacement of placeholder variables and other cleanup actions for convenience
+
+It makes the following assumptions:
+* the user returned by `git config user.name` is the author
+* the repo returned by `git remote get-url origin` is where this code will live longterm
+
+If these assumptions are incorrect, [manual adjustments will be needed](#Manually-Modify-the-Template-for-Use) (the task can still be run first)
+
+> is a mermaid diagram really necessary?  No, no it is not.  But mermaid is awesome, so let's use one anyway
+
+```mermaid
+%% tricky getting subgraphs not to re-order themselves.  Used invisible Container subgraph to force ordering
+flowchart LR
+    subgraph Container [Initialize-ToolTemplate.ps1 Overview]
+        A([Run Task])-->B[Prompt for User Input]
+        subgraph task [Task Process Flow]
+        B-->C[Find & Replace placeholders]-->D[Delete README.md]-->E[Rename README_wrapper.md to README.md]
+        end
+        subgraph user [Manual Actions]
+        F[Update the README]
+        end
+    end
+    style Container fill:none,stroke:none
 ```
-git subtree pull --prefix tools/Toolname https://github.com/epopisces/tools_Toolname master --squash
-```
 
-Alternately git submodules can also be used; however, git submodules are not as easy to maintain and keep updated.  The recommendation is only to use git submodules if the tools repo is also going to be developed as part of the project, instead of just used as a static library by the main project.
+The one thing the task can't automate for you is populating the README--don't neglect that step!  Documentation is important even for one-off personal projects
 
-The differences between git subtrees and git submodules are described in depth [in this article](https://martowen.com/2016/05/01/git-submodules-vs-git-subtrees/#:~:text=The%20simplest%20way%20to%20think,specific%20commit%20in%20another%20repository.&text=Subtrees%20are%20easier%20to%20pull,copies%20of%20the%20original%20repository).
+## Manually Modify the Template for Use
 
-# Toolname Python API Wrapper
+For more control, the steps that the Task would perform can be performed manually if preferred, and are enumerated below
 
-## Toolname_api.py
+1. Find & Replace (VSCode: `Ctrl+Shift+h`) Targets
 
-### Capabilities
-* Authentication against API
-* can do thing 1
-* can do thing 2
+| Variable | Usage | Example | Notes |
+|--|--|--|--|
+| toolname | toolname_api.py| sprocketwidget ||
+| ToolName | toolname_api.py| SprocketWidget ||
+| shortname | toolname_api.py| swt ||
+| ObjectClass | toolname_api.py| SprocketWidget ||
+| authorname | toolname_api.py| spock ||
+| repo_name | maintain.ps1 | tools_sprocketwidget_api | only necessary if tools are intended to be used via git subtrees |
 
-### Usage
-The below assumes you are using the repo as a subtree as described above.  Note this will require creating a empty `__init__.py` file in the 'tools' folder if there is not one present already so Python's import function can traverse the directories to get to the tool.
-```python
-import os
-from tools.toolname import toolname_api as shortname
+2. Delete this file (TEMPLATE.md)
 
-acct_email = os.getenv('toolname_email')        # Use environment variable by this name to store a username for the API user
-acct_pass = os.getenv('toolname_pass')       # Use environment variable by this name to store a password for the API user
-bb = shortname.ObjectClass(acct_email, acct_pass)
+> Once the repository is ready for use, this file can be removed to keep the repository clean.
 
-abbrev.{function-name}({parameters})
-```
-- Required Arguments
+3. Update the README
 
-    Variable Name | Type | Required? | Description
-    ------------- | ---- | --------- | ------------
-    thing1        | dict | Required  | Dictionary containing things
-    
-- Optional Argument
+> Don't neglect this step!  Update the documentation to reflect the usage and nature of the API wrapper.
 
-    Variable Name | Type | Required? | Default | Description
-    ------------- | ---- | --------- | --------| -----------
-    thing2        | bool | Optional  | False   | Determines if a thing happens
+## Update the *_api.py File for the API in Question
 
-### Running the Tests
+Search for lines starting with `# TODO` to see what must be updated (for example defining for the API wrapper what methods are supported by the API)
 
-Explain how to run the automated tests
+# API Wrapper Development Tips
 
-## Release History
+Some useful tips to remember:
 
-* 0.1.0
-    * The first proper release, signified by upload to FL Github
-* 0.0.1
-    * Work in progress, local dev
-
-## Metadata
-
-### Authors
-
-* [**authorname**](https://github.com/authorprofile) - Created the toolname_api
-
-See also the list of [contributors](https://github.com/<projname>/contributors) who participated in this project.
-
-### License
-
-This project is licensed under an MIT standard license - see the [LICENSE.md](LICENSE.md) file for details
-
-### Acknowledgments
-
-* [epopisces](https://github.com/epopisces) created the project template and boilerplate code used for this project
-* I owe a lot to my understanding of API wrappers to
-    * [igor-feoktistov](https://github.com/igor-feoktistov)'s [Infoblox-API-Python](https://github.com/Infoblox-Development/Infoblox-API-Python)
-    * [tjarrettveracode](https://github.com/tjarrettveracode)'s [Veracode API Helper](https://github.com/tjarrettveracode/veracode-api-py/blob/master/veracode_api_py/apihelper.py)
+* Once the tool is ready for use, use `pip freeze > requirements.txt` to update the requirements file so future users reap the benefits
+    * Only use in conjunction with a virtual environment to avoid adding all to your global config

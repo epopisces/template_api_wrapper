@@ -229,6 +229,8 @@ Function Set-PlaceholderValue {
 # While ($InLoop) {
 #     $ToolName = Get-ToolName("")
 #     Format-ToolName($ToolName)
+#     Rename-Item
+#     Rename-Item -Path '../../README_wrapper.md' -NewName 'README.md'
 #     break
 # }
 
