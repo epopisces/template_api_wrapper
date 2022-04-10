@@ -25,28 +25,28 @@ One paragraph of project description goes here
 There is no formal installation process at this time, but using [git subtrees](https://www.atlassian.com/git/tutorials/git-subtree) is strongly recommended.  Unfortunately there is no 'helper' integration for git subtrees in VS Code, so using the actual git commands are necessary:
 
 ```bash
-git subtree add --prefix tools/Toolname https://github.com/authorname/tools_Toolname master --squash
-git fetch https://github.com/authorname/tools_Toolname master
+git subtree add --prefix tools/Toolname https://github.com/authorname/tools_Toolname main --squash
+git fetch https://github.com/authorname/tools_Toolname main
 
 # Breaking the above down, the following command creates the subtree and the connection to the remote repo
 '''
 git subtree add --prefix <dest-path> <source-repo> <branch> --squash
     --prefix <path>         specify the destination folder (relative to current working directory).
     <source-repo>           the repository that is being pulled from
-    <branch>                branch to be pulled (usually 'master', may be 'main' if more recently created in GitHub)
+    <branch>                branch to be pulled (usually 'main', may be 'master' if created prior to 2022)
     --squash                optional but recommended command to discard the commit history of the source repo
 '''
 #The following command fetches the content of that repo so it will be available for use
 '''
 git fetch <source-repo> <branch>
     <source-repo>           the repository that is being pulled from
-    <branch>                branch to be pulled (usually 'master', may be 'main' if more recently created in GitHub)
+    <branch>                branch to be pulled (usually 'main', may be 'master' if created prior to 2022)
 '''
 ```
 
 But what if the remote tool repo gets updated?  Pulling the latest changes is super easy, barely an inconvenience: just use the same command above with 'git subtree pull' instead of 'git subtree add':
 ```
-git subtree pull --prefix tools/Toolname https://github.com/epopisces/tools_Toolname master --squash
+git subtree pull --prefix tools/Toolname https://github.com/epopisces/tools_Toolname main --squash
 ```
 
 Alternately git submodules can also be used; however, git submodules are not as easy to maintain and keep updated.  The recommendation is only to use git submodules if the tools repo is also going to be developed as part of the project, instead of just used as a static library by the main project.
