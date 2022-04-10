@@ -1,16 +1,19 @@
 # TEMPLATE USAGE
 > This template has been designed to provide a springboard or starting point for creating an API wrapper written in Python 3
 
+Note that this README is for the template itself and covers usage and features.  It is *not* intended to remain in a project that consumed the template.
+
 # Features
 > See [Getting Started](#Getting-Started) for usage
 
 Tasks for Automation
 * [Initialize Python Virtual Environment](##Set-up-the-Virtual-Environment)
 * [Initialize Template for Use](##Initialize-the-Template-for-Use-(recommended))
+* [Remove Template Metadata](##Remove-Template-Specific-Files)
 
 ## WIP Features
 The following features are not yet implemented
-> Let me know with a GitHub Issue if there are any 
+> Let me know with a GitHub Issue if there are any features that are missing 
 
 ## Prerequisites
 Intended for use for a Python project involving making HTTP requests.  As such, the following prerequisites are assumed:
@@ -91,9 +94,9 @@ For more control, the steps that the Task would perform can be performed manuall
 | authorname | toolname_api.py| spock ||
 | repo_name | maintain.ps1 | tools_sprocketwidget_api | only necessary if tools are intended to be used via git subtrees |
 
-2. Delete this file (TEMPLATE.md)
+2. Remove Template Specific Files
 
-> Once the repository is ready for use, this file can be removed to keep the repository clean.
+> Once the repository is ready for use, run the task this file can be removed to keep the repository clean.
 
 3. Update the README
 

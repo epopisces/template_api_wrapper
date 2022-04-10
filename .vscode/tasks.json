@@ -18,9 +18,9 @@
             "problemMatcher": []
         },
         {
-            "label": "Test",
+            "label": "Cleanup Template Metadata",
             "type": "shell",
-            "command": "./.vscode/scripts/test.ps1",
+            "command": "./.vscode/scripts/Remove-TemplateMetadata.ps1",
             "presentation": {
                 "echo": true,
                 "reveal": "always",
