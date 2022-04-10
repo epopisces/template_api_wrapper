@@ -26,9 +26,11 @@ In order to use the included VSCode tasks/automation, the following is required:
 
 # Getting Started
 
-Use [this GitHub generate link 'generate from template' link](https://github.com/epopisces/template_api_wrapper/generate) to generate a repo from it.  Alternately, navigate to the repository in GitHub and select `Use this template`.  For templates that have been used before, they will appear in the `Repository template` dropdown in the new repository process in GitHub.
+Use [this GitHub generate link 'generate from template' link](https://github.com/epopisces/template_api_wrapper/generate) to generate a repo from it.  
 
-Name the repository using the naming convention that makes sense for the use case.  For example, when building an API wrapper for a tool named 'Sprocket', use the name `sprocket_api_wrapper`
+Alternately, navigate to the repository in GitHub and select `Use this template`.  For templates that have been used before, they will appear in the `Repository template` dropdown in the new repository process in GitHub.
+
+Name the repository using the naming convention that makes sense for the use case.  For example, when building an API wrapper for a tool named 'Sprocket', use the name `api_sprocket_wrapper` or similar.
 
 ## Set up the Virtual Environment
 
@@ -52,7 +54,7 @@ See the [VSCode doc on Python environments](https://code.visualstudio.com/docs/p
 
 ## Initialize the Template for Use (recommended)
 
-This template includes a vscode task to automate the replacement of placeholder variables and other cleanup actions for convenience
+This template includes a VSCode Task to automate the replacement of placeholder variables and other cleanup actions for convenience
 
 It makes the following assumptions:
 * the user returned by `git config user.name` is the author
@@ -68,7 +70,7 @@ flowchart LR
     subgraph Container [Initialize-ToolTemplate.ps1 Overview]
         A([Run Task])-->B[Prompt for User Input]
         subgraph task [Task Process Flow]
-        B-->C[Find & Replace placeholders]-->D[Delete README.md]-->E[Rename README_wrapper.md to README.md]
+        B-->C[Find & Replace placeholders]-->D[Rename README.md to TEMPLATE_README.md]-->E[Rename PROJ_README.md to README.md]
         end
         subgraph user [Manual Actions]
         F[Update the README]
@@ -81,34 +83,33 @@ The one thing the task can't automate for you is populating the README--don't ne
 
 ## Manually Modify the Template for Use
 
-For more control, the steps that the Task would perform can be performed manually if preferred, and are enumerated below
+For more control, the steps that the Task above would perform can be performed manually if preferred, and are enumerated below
 
 1. Find & Replace (VSCode: `Ctrl+Shift+h`) Targets
 
-| Variable | Usage | Example | Notes |
-|--|--|--|--|
-| toolname | toolname_api.py| sprocketwidget ||
-| ToolName | toolname_api.py| SprocketWidget ||
-| shortname | toolname_api.py| swt ||
-| ObjectClass | toolname_api.py| SprocketWidget ||
-| authorname | toolname_api.py| spock ||
-| repo_name | maintain.ps1 | tools_sprocketwidget_api | only necessary if tools are intended to be used via git subtrees |
+    | Variable | Usage | Example | Notes |
+    |--|--|--|--|
+    | toolname | toolname_api.py| sprocketwidget ||
+    | ToolName | toolname_api.py| SprocketWidget ||
+    | shortname | toolname_api.py| swt ||
+    | ObjectClass | toolname_api.py| SprocketWidget ||
+    | authorname | toolname_api.py| spock ||
+    | repo_name | maintain.ps1 | tools_sprocketwidget_api | only necessary if tools are intended to be used via git subtrees |
 
 2. Remove Template Specific Files
 
-> Once the repository is ready for use, run the task this file can be removed to keep the repository clean.
+    > For example, once the repository is ready for use this file can be removed to keep the repository clean.
 
-3. Update the README
-
-> Don't neglect this step!  Update the documentation to reflect the usage and nature of the API wrapper.
+3. Update the [README](README.md)
+    > Don't neglect this step!  Update the documentation to reflect the usage and nature of the API wrapper.
 
 ## Update the *_api.py File for the API in Question
 
-Search for lines starting with `# TODO` to see what must be updated (for example defining for the API wrapper what methods are supported by the API)
+Searching for lines starting with `# TODO` will provide a good starting point of things (for example defining for the API wrapper what methods are supported by the API)
 
 # API Wrapper Development Tips
 
 Some useful tips to remember:
 
 * Once the tool is ready for use, use `pip freeze > requirements.txt` to update the requirements file so future users reap the benefits
-    * Only use in conjunction with a virtual environment to avoid adding all to your global config
+    * Only use in conjunction with a virtual environment to avoid adding unrelated modules to your global config

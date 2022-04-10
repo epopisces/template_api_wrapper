@@ -223,18 +223,19 @@ Function Set-PlaceholderValue {
 
 #--------------------------------------------------[Execution]--------------------------------------------------
 
+# TODO Remove after testing
+Set-AllPlaceholderValues('Microsoft Excel')
 #Log-Start -LogPath $sLogPath -LogName $sLogName -ScriptVersion $ScriptVersion
 # Write-Host "oh hey there!"
 # $InLoop = $true
 # While ($InLoop) {
 #     $ToolName = Get-ToolName("")
 #     Format-ToolName($ToolName)
-#     Rename-Item
-#     Rename-Item -Path '../../README_wrapper.md' -NewName 'README.md'
+#     Rename-Item -Path './README.md' -NewName 'TEMPLATE_README.md'
+#     Rename-Item -Path './PROJ_README.md' -NewName 'README.md'
 #     break
 # }
+Write-Host "Operation successful: update the README.md as appropriate for the project"
 
 
-# TODO Remove after testing
-Set-AllPlaceholderValues('Microsoft Excel')
 #Log-Finish -LogPath $sLogFile
