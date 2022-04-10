@@ -1,5 +1,3 @@
-> If getting started with this as a template, see the [TEMPLATE.md](TEMPLATE.md) document first
-
 # Toolname Tools
 
 > Tools for interacting with Toolname, including a Python API wrapper
@@ -14,12 +12,13 @@ One paragraph of project description goes here
 
 ![](placeholder.png)
 
-## Getting Started
-
 ### Prerequisites
 
 - Python 3
 - packages listed in the [requirements.txt](requirements.txt) file
+
+
+## Getting Started
 
 ### Installation
 
@@ -66,6 +65,7 @@ The differences between git subtrees and git submodules are described in depth [
 ### Usage
 The below assumes you are using the repo as a subtree as described above.  Note this will require creating a empty `__init__.py` file in the 'tools' folder if there is not one present already so Python's import function can traverse the directories to get to the tool.
 ```python
+#? The below method uses environment variables for handling secrets.  If a superior method of secrets management is available, use that method instead
 import os
 from tools.toolname import toolname_api as shortname
 
@@ -108,7 +108,7 @@ See also the list of [contributors](https://github.com/<projname>/contributors) 
 
 ### License
 
-This project is licensed under an MIT standard license - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under an MIT No Attribution license - see the [LICENSE](LICENSE) file for details
 
 ### Acknowledgments
 
